@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.bonait.bnframework.application.MainApplication;
 import com.bonait.bnframework.common.constant.Constants;
+import com.bonait.bnframework.common.utils.AlertDialogUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -22,7 +23,6 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by LY on 2019/3/25.
  */
 public abstract class BaseFragment extends QMUIFragment implements EasyPermissions.PermissionCallbacks {
-    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     public BaseFragment() {
     }
@@ -70,27 +70,18 @@ public abstract class BaseFragment extends QMUIFragment implements EasyPermissio
         //跳转到设置界面去，让用户手动开启。
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 
-            new QMUIDialog.MessageDialogBuilder(getContext())
-                    .setCancelable(false)
-                    .setTitle("需要权限，才能正常使用：")
-                    .setMessage("如果没有请求的权限，此应用可能无法正常工作。请打开应用设置以修改应用权限。")
-                    .addAction("取消", new QMUIDialogAction.ActionListener() {
-                        @Override
-                        public void onClick(QMUIDialog dialog, int index) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .addAction("去设置", new QMUIDialogAction.ActionListener() {
-                        @Override
-                        public void onClick(QMUIDialog dialog, int index) {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", MainApplication.getContext().getPackageName(), null);
-                            intent.setData(uri);
-                            startActivityForResult(intent, Constants.APP_SETTING_DIALOG_REQUEST_CODE);
-                            dialog.dismiss();
-                        }
-                    })
-                    .create(mCurrentDialogStyle).show();
+            String title = "需要权限，才能正常使用：";
+            String message = "如果没有请求的权限，此应用可能无法正常工作。请打开应用设置以修改应用权限。";
+            AlertDialogUtils.showDialog(getContext(), title, message, "去设置", new QMUIDialogAction.ActionListener() {
+                @Override
+                public void onClick(QMUIDialog dialog, int index) {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", MainApplication.getContext().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, Constants.APP_SETTING_DIALOG_REQUEST_CODE);
+                    dialog.dismiss();
+                }
+            });
         }
     }
 }

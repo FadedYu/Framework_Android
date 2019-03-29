@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,42 +22,28 @@
             <RelativeLayout style="@style/button_wrapper_style">
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/button1"
+                    android:id="@+id/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="10dp"
-                    android:text="BottomNavigation1"
-                    app:qmui_isRadiusAdjustBounds="true"/>
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="更改 border 颜色和宽度"
+                    android:textColor="@color/qmui_s_link_color"
+                    app:qmui_borderColor="@color/qmui_s_link_color"
+                    app:qmui_borderWidth="1px"/>
 
             </RelativeLayout>
-
-            <RelativeLayout style="@style/button_wrapper_style">
-
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="10dp"
-                    android:text="BottomNavigation2"
-                    app:qmui_isRadiusAdjustBounds="true"/>
-
-            </RelativeLayout>
-
 
         </LinearLayout>
     </ScrollView>
+
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"/>
+
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

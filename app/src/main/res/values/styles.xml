@@ -2,13 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
-        <!-- Customize your theme here. -->
 
-        <!--<item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>-->
-
+        <item name="colorPrimary">@color/app_color_blue</item>
+        <item name="colorPrimaryDark">@color/app_color_blue</item>
+        <!--<item name="colorAccent">@color/app_color_blue</item>-->
         <!-- 配置Android提供的theme -->
+
         <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>

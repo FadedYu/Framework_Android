@@ -1,6 +1,5 @@
 package com.bonait.bnframework.common.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -29,7 +28,7 @@ public class ToastUtils {
     private static final int DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");
 
     @ColorInt
-    private static final int ERROR_COLOR = Color.parseColor("#FD4C5B");
+    private static final int ERROR_COLOR = Color.parseColor("#F44336"); //#FD4C5B
 
     @ColorInt
     private static final int INFO_COLOR = Color.parseColor("#3F51B5");
@@ -44,11 +43,7 @@ public class ToastUtils {
 
     private static Toast currentToast;
 
-    //*******************************************普通 使用ApplicationContext 方法*********************
-    /**
-     * Toast 替代方法 ：立即显示无需等待
-     */
-    private static Toast mToast;
+    //***********************普通 使用ApplicationContext 方法*********************//
     private static long mExitTime;
 
     public static void normal(@NonNull String message) {
@@ -263,9 +258,6 @@ public class ToastUtils {
     }
     //===========================================内需方法============================================
 
-
-    //******************************************系统 Toast 替代方法***************************************
-
     public static final void setBackground(@NonNull View view, Drawable drawable) {
         view.setBackground(drawable);
     }
@@ -274,105 +266,6 @@ public class ToastUtils {
         return context.getDrawable(id);
     }
 
-    /**
-     * 封装了Toast的方法 :需要等待
-     *
-     * @param context Context
-     * @param str     要显示的字符串
-     * @param isLong  Toast.LENGTH_LONG / Toast.LENGTH_SHORT
-     */
-    public static void showToast(Context context, String str, boolean isLong) {
-        if (isLong) {
-            Toast.makeText(context, str, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 封装了Toast的方法 :需要等待
-     */
-    public static void showToastShort(String str) {
-        Toast.makeText(MainApplication.getContext(), str, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 封装了Toast的方法 :需要等待
-     */
-    public static void showToastShort(int resId) {
-        Toast.makeText(MainApplication.getContext(), MainApplication.getContext().getString(resId), Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * 封装了Toast的方法 :需要等待
-     */
-    public static void showToastLong(String str) {
-        Toast.makeText(MainApplication.getContext(), str, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * 封装了Toast的方法 :需要等待
-     */
-    public static void showToastLong(int resId) {
-        Toast.makeText(MainApplication.getContext(), MainApplication.getContext().getString(resId), Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Toast 替代方法 ：立即显示无需等待
-     *
-     * @param msg 显示内容
-     */
-    public static void showToast(String msg) {
-        if (mToast == null) {
-            mToast = Toast.makeText(MainApplication.getContext(), msg, Toast.LENGTH_LONG);
-        } else {
-            mToast.setText(msg);
-        }
-        mToast.show();
-    }
-
-    /**
-     * Toast 替代方法 ：立即显示无需等待
-     *
-     * @param resId String资源ID
-     */
-    public static void showToast(int resId) {
-        if (mToast == null) {
-            mToast = Toast.makeText(MainApplication.getContext(), MainApplication.getContext().getString(resId), Toast.LENGTH_LONG);
-        } else {
-            mToast.setText(MainApplication.getContext().getString(resId));
-        }
-        mToast.show();
-    }
-
-    /**
-     * Toast 替代方法 ：立即显示无需等待
-     *
-     * @param context  实体
-     * @param resId    String资源ID
-     * @param duration 显示时长
-     */
-    public static void showToast(Context context, int resId, int duration) {
-        showToast(context, context.getString(resId), duration);
-    }
-    //===========================================Toast 替代方法======================================
-
-    /**
-     * Toast 替代方法 ：立即显示无需等待
-     *
-     * @param context  实体
-     * @param msg      要显示的字符串
-     * @param duration 显示时长
-     */
-    @SuppressLint("ShowToast")
-    public static void showToast(Context context, String msg, int duration) {
-        if (mToast == null) {
-            mToast = Toast.makeText(context, msg, duration);
-        } else {
-            mToast.setText(msg);
-        }
-        mToast.show();
-    }
 
     public static boolean doubleClickExit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
