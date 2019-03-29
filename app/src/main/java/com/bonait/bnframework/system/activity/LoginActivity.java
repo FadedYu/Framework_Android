@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
 
     private int screenHeight = 0;//屏幕高度
     private int keyHeight = 0; //软件盘弹起后所占高度
-    private final float scale = 1.0f; //logo缩放比例
+    private final float scale = 0.9f; //logo缩放比例
     private int height = 0;
 
     boolean isCheckBox;
@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity {
      * 忘记密码
      * */
     private void forgotPassword() {
-        ToastUtils.error("请与管理员联系修改密码！");
+        ToastUtils.info("请与管理员联系修改密码！");
     }
 
     /**
@@ -171,7 +171,7 @@ public class LoginActivity extends BaseActivity {
               /* old是改变前的左上右下坐标点值，没有old的是改变后的左上右下坐标点值
               现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起*/
                 if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
-                    int dist = mContent.getBottom() - bottom;
+                    int dist = mContent.getBottom() - mScrollView.getHeight();
                     if (dist > 0) {
                         ObjectAnimator mAnimatorTranslateY = ObjectAnimator.ofFloat(mContent, "translationY", 0.0f, -dist);
                         mAnimatorTranslateY.setDuration(300);
