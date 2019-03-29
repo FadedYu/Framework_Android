@@ -41,4 +41,5 @@ ext { // 统一版本入口
 
     // 支持包
     supportVersion = "28.0.0"
+    butterknife = "8.8.1"
 }
