@@ -42,6 +42,9 @@ public class MainApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
 
+        // activity生命周期管理
+        ActivityLifecycleManager.get().init(this);
+
         // QMUI 框架初始化
         QMUISwipeBackActivityManager.init(this);
 

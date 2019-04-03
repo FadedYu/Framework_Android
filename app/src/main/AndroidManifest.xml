@@ -36,7 +36,10 @@
 
 
         <activity android:name=".system.activity.LoginActivity">
-
+            <intent-filter>
+                <action android:name="com.bonait.bnframework.system.activity.LoginActivity.ACTION_START"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
         <activity android:name=".system.activity.BottomNavigation2Activity"/>
         <activity android:name=".system.activity.BottomNavigationActivity"/>

@@ -1,5 +1,10 @@
 package com.bonait.bnframework.common.http;
 
+import android.app.Activity;
+import android.content.Intent;
+
+import com.bonait.bnframework.application.ActivityLifecycleManager;
+import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
@@ -76,10 +81,29 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         } else if (exception instanceof StorageException) {
             ToastUtils.error("SD卡不存在或者没有获取SD卡访问权限！");
         } else if (exception instanceof TokenException) {
-            // TODO: 2019/4/3 token过期，跳转到登录页面
-            ToastUtils.error(exception.getMessage());
+            // 删除token，跳转到登录页面
+            skipLoginActivityAndFinish(exception);
         } else if (exception instanceof IllegalStateException) {
             ToastUtils.error(exception.getMessage());
         }
+    }
+
+    /**
+     * 删除token，跳转到登录页面
+     * */
+    private void skipLoginActivityAndFinish(Throwable exception) {
+        //删除本地过期的token
+        PreferenceUtils.remove("token");
+        PreferenceUtils.remove("userId");
+        Intent intent = new Intent("com.bonait.bnframework.system.activity.LoginActivity.ACTION_START");
+        // 获取当前Activity（栈中最后一个压入的）
+        Activity activity = ActivityLifecycleManager.get().currentActivity();
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
+        // 跳转到登录页面
+        activity.startActivity(intent);
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        //ToastUtils.error(exception.getMessage());
     }
 }
