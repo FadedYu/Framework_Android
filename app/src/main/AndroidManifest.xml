@@ -34,16 +34,19 @@
                 android:resource="@xml/app_provider_paths" />
         </provider>
 
+
         <activity android:name=".system.activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".system.activity.BottomNavigation2Activity"/>
+        <activity android:name=".system.activity.BottomNavigationActivity"/>
+        <activity android:name=".test.TestActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".system.activity.BottomNavigation2Activity"/>
-        <activity android:name=".system.activity.BottomNavigationActivity"/>
-        <activity android:name=".test.TestActivity" />
         <activity android:name=".MainActivity">
 
         </activity>

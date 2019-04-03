@@ -29,7 +29,24 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="更改 border 颜色和宽度"
+                    android:text="测试按钮测试按钮1"
+                    android:textColor="@color/qmui_s_link_color"
+                    app:qmui_borderColor="@color/qmui_s_link_color"
+                    app:qmui_borderWidth="1px"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/button_wrapper_style">
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="测试按钮测试按钮2"
                     android:textColor="@color/qmui_s_link_color"
                     app:qmui_borderColor="@color/qmui_s_link_color"
                     app:qmui_borderWidth="1px"/>
@@ -37,6 +54,7 @@
             </RelativeLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 

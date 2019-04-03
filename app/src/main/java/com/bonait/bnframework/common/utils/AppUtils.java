@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Base64;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -98,10 +99,10 @@ public class AppUtils {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte digest[] = md.digest(inputStr.getBytes(StandardCharsets.UTF_8));
-            return Base64.encodeToString(digest, Base64.DEFAULT);
-            //Base64.encodeBase64(digest)
+            return new String(Base64.encodeBase64(digest));
         } catch (Exception e) {
             return null;
         }
     }
+
 }

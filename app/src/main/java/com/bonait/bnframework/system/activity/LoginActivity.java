@@ -97,7 +97,7 @@ public class LoginActivity extends BaseActivity {
                 KeyboardToolUtils.hideSoftInput(LoginActivity.this);
                 // 退出界面之前把状态栏还原为白色字体与图标
                 QMUIStatusBarHelper.setStatusBarDarkMode(LoginActivity.this);
-                Intent intent = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                Intent intent = new Intent(LoginActivity.this, BottomNavigation2Activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 LoginActivity.this.finish();

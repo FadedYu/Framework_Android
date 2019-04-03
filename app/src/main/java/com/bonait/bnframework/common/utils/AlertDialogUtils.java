@@ -69,7 +69,7 @@ public class AlertDialogUtils {
     /**
      * 对话框，带红色按钮
      * */
-    private void showRedButtonDialog(Context context, String title, String message,String ok, QMUIDialogAction.ActionListener onClickListener) {
+    public static void showRedButtonDialog(Context context, String title, String message,String ok, QMUIDialogAction.ActionListener onClickListener) {
         new QMUIDialog.MessageDialogBuilder(context)
                 .setCancelable(false)
                 .setTitle(title)

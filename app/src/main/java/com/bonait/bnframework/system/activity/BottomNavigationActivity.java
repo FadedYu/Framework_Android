@@ -13,7 +13,7 @@ import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.home.fragment.Home1Fragment;
 import com.bonait.bnframework.home.fragment.Home2Fragment;
-import com.bonait.bnframework.home.fragment.Home3Fragment;
+import com.bonait.bnframework.system.fragment.MyFragment;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -111,7 +111,7 @@ public class BottomNavigationActivity extends BaseActivity {
                     case 1:
                         return new Home2Fragment();
                     case 2:
-                        return new Home3Fragment();
+                        return new MyFragment();
                     default:
                         return new Home1Fragment();
                 }

@@ -8,10 +8,10 @@ import android.view.MenuItem;
 
 import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseActivity;
-import com.bonait.bnframework.system.adapter.FragmentAdapter;
 import com.bonait.bnframework.home.fragment.Home1Fragment;
 import com.bonait.bnframework.home.fragment.Home2Fragment;
-import com.bonait.bnframework.home.fragment.Home3Fragment;
+import com.bonait.bnframework.system.adapter.FragmentAdapter;
+import com.bonait.bnframework.system.fragment.MyFragment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import butterknife.BindView;
@@ -47,7 +47,7 @@ public class BottomNavigation2Activity extends BaseActivity {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         fragmentAdapter.addFragment(new Home1Fragment());
         fragmentAdapter.addFragment(new Home2Fragment());
-        fragmentAdapter.addFragment(new Home3Fragment());
+        fragmentAdapter.addFragment(new MyFragment());
         viewPager.setAdapter(fragmentAdapter);
     }
 
