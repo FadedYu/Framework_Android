@@ -1,5 +1,6 @@
 # Framework_Android
 Android架构搭建，根据腾讯QMUI_Android框架搭建，适用于快速运用到项目中去。
+感谢QMUI_Android团队为广大开发者提供的 UI 库 ，官网：[http://qmuiteam.com/android](http://qmuiteam.com/android)
 
 
 ### （持续更新）
