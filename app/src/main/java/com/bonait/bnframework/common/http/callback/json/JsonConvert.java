@@ -1,7 +1,9 @@
-package com.bonait.bnframework.common.http;
+package com.bonait.bnframework.common.http.callback.json;
 
 import android.text.TextUtils;
 
+import com.bonait.bnframework.common.http.GsonUtils;
+import com.bonait.bnframework.common.http.exception.TokenException;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.model.BaseJson;
 import com.bonait.bnframework.common.model.SimpleBaseJson;

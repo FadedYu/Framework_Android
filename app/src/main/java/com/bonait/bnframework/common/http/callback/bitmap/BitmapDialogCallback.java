@@ -1,4 +1,4 @@
-package com.bonait.bnframework.common.http;
+package com.bonait.bnframework.common.http.callback.bitmap;
 
 import android.content.Context;
 import android.graphics.Bitmap;

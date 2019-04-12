@@ -73,23 +73,24 @@ public class MyFragment extends BaseFragment {
             @Override
             public void onClickListener(SuperTextView superTextView) {
                 //检查权限，并启动版本更新
-                ToastUtils.info("点击更新");
+                //ToastUtils.info("点击更新");
+                checkPermission();
             }
         });
     }
 
-
-@AfterPermissionGranted(Constants.UPDATE_APP)
+    @AfterPermissionGranted(Constants.UPDATE_APP)
     @Override
     public void checkPermission() {
+        // 检查文件读写权限
         String[] params = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(getContext(),params)) {
 
             //Android 8.0后，安装应用需要检查打开未知来源应用权限
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
+                checkInstallPermission();
             } else {
-
+                ToastUtils.warning("Android 7.0");
             }
         } else {
             //未获取权限
@@ -102,7 +103,7 @@ public class MyFragment extends BaseFragment {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkInstallPermission() {
-        // 检查是否已打开未知来源应用权限
+        // 判断是否已打开未知来源应用权限
         boolean haveInstallPermission = getContext().getPackageManager().canRequestPackageInstalls();
 
         if (!haveInstallPermission) {
@@ -113,11 +114,12 @@ public class MyFragment extends BaseFragment {
                     new QMUIDialogAction.ActionListener() {
                         @Override
                         public void onClick(QMUIDialog dialog, int index) {
+                            // 跳转到系统打开未知来源应用权限，在onActivityResult中启动更新
                             toInstallPermissionSettingIntent(getContext());
                         }
                     });
         } else {
-            //启动版本更新
+            //已经打开权限，直接启动版本更新
 
             Logger.d("已打开未知来源应用权限");
         }

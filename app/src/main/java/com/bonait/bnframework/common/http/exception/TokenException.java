@@ -1,4 +1,4 @@
-package com.bonait.bnframework.common.http;
+package com.bonait.bnframework.common.http.exception;
 
 /**
  * Created by LY on 2019/4/3.

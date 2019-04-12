@@ -8,8 +8,8 @@ import android.view.View;
 import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
-import com.bonait.bnframework.common.http.DialogCallback;
-import com.bonait.bnframework.common.http.file.ProgressDialogCallBack;
+import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
+import com.bonait.bnframework.common.http.callback.files.FileProgressDialogCallBack;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.AppUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
@@ -72,7 +72,7 @@ public class TestActivity extends BaseActivity {
         OkGo.<BaseCodeJson<Void>>post(url)
                 .tag(this)
                 .params("token", token)
-                .execute(new DialogCallback<BaseCodeJson<Void>>(this) {
+                .execute(new JsonDialogCallback<BaseCodeJson<Void>>(this) {
                     @Override
                     public void onSuccess(Response<BaseCodeJson<Void>> response) {
                         BaseCodeJson<Void> baseCodeJson = response.body();
@@ -90,7 +90,7 @@ public class TestActivity extends BaseActivity {
                 .tag(this)
                 .params("username",userName)
                 .params("password",passWord)
-                .execute(new DialogCallback<BaseCodeJson<AppLoginPo>>(this) {
+                .execute(new JsonDialogCallback<BaseCodeJson<AppLoginPo>>(this) {
                     @Override
                     public void onSuccess(Response<BaseCodeJson<AppLoginPo>> response) {
                         BaseCodeJson<AppLoginPo> loginPo = response.body();
@@ -127,7 +127,7 @@ public class TestActivity extends BaseActivity {
         String url = Constants.SERVICE_IP+"/iandroid/appVersionAction!getNewVersion.do";
         OkGo.<UpdateAppPo>post(url)
                 .tag(this)
-                .execute(new DialogCallback<UpdateAppPo>(this) {
+                .execute(new JsonDialogCallback<UpdateAppPo>(this) {
                     @Override
                     public void onSuccess(Response<UpdateAppPo> response) {
                         UpdateAppPo updateAppPo = response.body();
@@ -143,7 +143,7 @@ public class TestActivity extends BaseActivity {
     private void toDownload() {
         OkGo.<File>get(downloadUrl)
                 .tag(this)
-                .execute(new ProgressDialogCallBack(this,totalSize) {
+                .execute(new FileProgressDialogCallBack(this,totalSize) {
                     @Override
                     public void onSuccess(Response<File> response) {
                         ToastUtils.success("下载完成！");

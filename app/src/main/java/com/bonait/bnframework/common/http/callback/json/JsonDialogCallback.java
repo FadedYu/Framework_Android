@@ -1,39 +1,45 @@
-package com.bonait.bnframework.common.http;
+package com.bonait.bnframework.common.http.callback.json;
 
 import android.content.Context;
 
-import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.request.base.Request;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 /**
- * Created by LY on 2019/4/2.
+ * Created by LY on 2019/4/1.
  *
- * 对convertResponse()按文本解析，解析的编码依据服务端响应头中的Content-Type中的编码格式，自动进行编码转换，确保不出现乱码
+ * 在网络请求前显示一个loading，请求结束后取消loading
  *
- * 有加载框的文本解析回调
+ * 有加载框的网络请求回调
  *
  */
-public abstract class StringDialogCallback extends StringCallback {
+public abstract class JsonDialogCallback<T> extends JsonCallback<T> {
 
     private QMUITipDialog tipDialog;
 
     /**
-     * 展示加载框
+     * 弹出加载框入口
      * */
-    public StringDialogCallback(Context context) {
+    public JsonDialogCallback(Context context) {
+        super();
+        initDialog(context);
+    }
+
+    /**
+     * 初始化加载框
+     * */
+    private void initDialog(Context context) {
         tipDialog = new QMUITipDialog.Builder(context)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
     }
 
-
     /**
      * 请求网络开始前弹出加载框
      * */
     @Override
-    public void onStart(Request<String, ? extends Request> request) {
+    public void onStart(Request<T, ? extends Request> request) {
         if (tipDialog != null && !tipDialog.isShowing()) {
             tipDialog.show();
         }
@@ -48,5 +54,4 @@ public abstract class StringDialogCallback extends StringCallback {
             tipDialog.dismiss();
         }
     }
-
 }

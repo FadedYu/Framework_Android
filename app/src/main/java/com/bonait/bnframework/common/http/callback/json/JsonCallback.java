@@ -1,10 +1,11 @@
-package com.bonait.bnframework.common.http;
+package com.bonait.bnframework.common.http.callback.json;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.constant.SPConstants;
+import com.bonait.bnframework.common.http.exception.TokenException;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
 import com.lzy.okgo.callback.AbsCallback;

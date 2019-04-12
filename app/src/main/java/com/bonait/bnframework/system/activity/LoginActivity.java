@@ -23,7 +23,7 @@ import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.constant.SPConstants;
-import com.bonait.bnframework.common.http.DialogCallback;
+import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.AlertDialogUtils;
 import com.bonait.bnframework.common.utils.AnimationToolUtils;
@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 .tag(this)
                 .params("username",userAccount)
                 .params("password",newPassword)
-                .execute(new DialogCallback<BaseCodeJson<AppLoginPo>>(this) {
+                .execute(new JsonDialogCallback<BaseCodeJson<AppLoginPo>>(this) {
                     @Override
                     public void onSuccess(Response<BaseCodeJson<AppLoginPo>> response) {
                         BaseCodeJson<AppLoginPo> loginJson = response.body();

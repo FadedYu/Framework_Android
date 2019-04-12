@@ -9,10 +9,9 @@ import android.view.KeyEvent;
 import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.constant.SPConstants;
-import com.bonait.bnframework.common.http.JsonCallback;
+import com.bonait.bnframework.common.http.callback.json.JsonCallback;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
-import com.bonait.bnframework.test.TestActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
@@ -30,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
     * 2：设置启动界面2秒后跳转
     * */
     private final static int SELECT_MODE = 1;
+    private OkHttpClient.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //判断token，跳转至 MainActivity
+                        //判断token
                         doPost();
                     }
                 });
@@ -72,7 +72,7 @@ public class WelcomeActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //判断token，跳转至 MainActivity
+                //判断token
                 doPost();
             }
         }, 2000);
@@ -94,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
         String url = Constants.SERVICE_IP + "/checkToken.do";
 
         // 修改请求超时时间为6s，与全局超时时间分开
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder = new OkHttpClient.Builder();
         builder.readTimeout(2000, TimeUnit.MILLISECONDS);
         builder.writeTimeout(2000, TimeUnit.MILLISECONDS);
         builder.connectTimeout(2000, TimeUnit.MILLISECONDS);
@@ -109,7 +109,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         BaseCodeJson baseCodeJson = response.body();
                         Logger.d(baseCodeJson.getMsg());
                         // token未过期，跳转到主界面
-                        Intent intent = new Intent(WelcomeActivity.this, TestActivity.class);
+                        Intent intent = new Intent(WelcomeActivity.this, BottomNavigation2Activity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         // 结束所有Activity
@@ -126,7 +126,6 @@ public class WelcomeActivity extends AppCompatActivity {
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         // 结束所有Activity
                         ActivityLifecycleManager.get().finishAllActivity();
-
                     }
                 });
     }
@@ -144,7 +143,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        OkGo.getInstance().cancelTag(this);
+        OkGo.cancelAll(builder.build());
 
         if (handler != null) {
             //If token is null, all callbacks and messages will be removed.
