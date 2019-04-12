@@ -145,37 +145,53 @@ public class JsonConvert<T> implements Converter<T> {
      *
      * */
     private T convertBaseCodeJson(Response response,ParameterizedType type,JsonReader jsonReader,Type typeArgument) {
+
+        //code返回的数据,0：表示成功，其他失败的有：101,102,900
+        int code;
+        // msg信息
+        String msg;
+
         if (typeArgument == Void.class) {
             // 泛型格式如下： new JsonCallback<BaseCodeJson<Void>>(this)
             SimpleCodeJson simpleCodeJson = GsonUtils.fromJson(jsonReader,SimpleCodeJson.class);
             response.close();
-            //noinspection unchecked
-            return (T) simpleCodeJson.toBaseCodeJson();
+
+            code = simpleCodeJson.getCode();
+            msg = simpleCodeJson.getMsg();
+            if (TextUtils.isEmpty(msg)) {
+                msg = "未知错误，请稍后重试！";
+            }
+            // code为0: 表示成功
+            if (code == 0) {
+                //noinspection unchecked
+                return (T) simpleCodeJson.toBaseCodeJson();
+            }
         } else {
             // 泛型格式如下： new JsonCallback<BaseCodeJson<内层JavaBean>>(this)
             BaseCodeJson baseCodeJson = GsonUtils.fromJson(jsonReader,type);
             response.close();
 
-            int code = baseCodeJson.getCode();
-            String msg = baseCodeJson.getMsg();
+            code = baseCodeJson.getCode();
+            msg = baseCodeJson.getMsg();
             if (TextUtils.isEmpty(msg)) {
                 msg = "未知错误，请稍后重试！";
             }
-
-            // 根据code返回不同的数据
-            // 0: 表示成功
+            // code为0: 表示成功
             if (code == 0) {
                 //noinspection unchecked
                 return (T) baseCodeJson;
-            } else if (code == 101) {
-                throw new IllegalStateException(msg+"");
-            } else if (code == 102) {
-                throw new TokenException(msg+"");
-            } else if (code == 900) {
-                throw new IllegalStateException(msg+"");
-            } else {
-                throw new IllegalStateException(msg+"");
             }
+        }
+
+        // 当code返回不是0时，表示错误数据，根据数据返回不同的错误信息
+        if (code == 101) {
+            throw new IllegalStateException(msg+"");
+        } else if (code == 102) {
+            throw new TokenException(msg+"");
+        } else if (code == 900) {
+            throw new IllegalStateException(msg+"");
+        } else {
+            throw new IllegalStateException(msg+"");
         }
     }
 
@@ -186,32 +202,43 @@ public class JsonConvert<T> implements Converter<T> {
      *
      * */
     private T convertBaseJson(Response response,ParameterizedType type,JsonReader jsonReader,Type typeArgument) {
+
+        // 一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
+        // success为true则表示成功，false表示失败
+        boolean success;
+        // msg信息
+        String msg;
+
         if (typeArgument == Void.class) {
             // 泛型格式如下： new JsonCallback<BaseJson<Void>>(this)
             SimpleBaseJson simpleBaseJson = GsonUtils.fromJson(jsonReader, SimpleBaseJson.class);
             response.close();
-            //noinspection unchecked
-            return (T) simpleBaseJson.toBaseJson();
+            success = simpleBaseJson.isSuccess();
+            msg = simpleBaseJson.getMsg();
+            // success为true时，表示成功
+            if (success) {
+                //noinspection unchecked
+                return (T) simpleBaseJson.toBaseJson();
+            }
 
         } else {
             // 泛型格式如下： new JsonCallback<BaseJson<内层JavaBean>>(this)
             BaseJson baseJson = GsonUtils.fromJson(jsonReader, type);
             response.close();
-            boolean success = baseJson.isSuccess();
-            String msg = baseJson.getMsg();
-            //这里的success是以下意思,success为true则表示成功，false表示失败
-            //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
+            success = baseJson.isSuccess();
+            msg = baseJson.getMsg();
+            // success为true时，表示成功
             if (success) {
                 //noinspection unchecked
                 return (T) baseJson;
-            } else {
-                if (msg != null) {
-                    throw new IllegalStateException(baseJson.getMsg()+"");
-                } else {
-                    throw new IllegalStateException("请求服务器失败，请稍后重试！");
-                }
             }
+        }
 
+        // 当success为false时，会走以下方法，显示不同的错误信息
+        if (msg != null) {
+            throw new IllegalStateException(msg+"");
+        } else {
+            throw new IllegalStateException("请求服务器失败，请稍后重试！");
         }
     }
 }
