@@ -51,6 +51,9 @@ public class MainApplication extends Application {
         // 全局配置OkGo
         initOkGo();
 
+        // SmartShow Toast框架，暂时不用，先使用ToastUtils工具类的
+        //SmartShow.init(this);
+
         // 配置sharedPreferences
         PreferenceUtils.initPreference(this, AppUtils.getAppName(this), Activity.MODE_PRIVATE);
 

@@ -16,10 +16,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            resValue("bool","superAdminTest","false")
         }
 
         debug {
             resValue("string", "PORT_NUMBER", "8081")
+            resValue("bool","superAdminTest","true")
         }
     }
 }
@@ -42,7 +45,6 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:$rootProject.supportVersion"
 
     // QMUI框架 link: http://qmuiteam.com/android
-
     // 本App 搭建的基础框架，基本使用控件功能请看官网的功能列表
     implementation 'com.qmuiteam:qmui:1.2.0'
     implementation 'com.qmuiteam:arch:0.3.1'
@@ -63,11 +65,14 @@ dependencies {
     // SuperTextView
     implementation 'com.github.lygttpod:SuperTextView:2.1.8'
 
+    // android-saripaar 基于规则的Android表单验证库
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+
     // litePal 数据库操作框架
     implementation 'org.litepal.android:java:3.0.0'
 
-    // Toast 封装库
-    implementation 'com.github.the-pig-of-jungle.smart-show:toast:2.6.6'
+    // SmartShow Toast框架，解决不同机型弹出方式缺陷问题
+    implementation 'com.github.the-pig-of-jungle.smart-show:toast:2.6.7'
 
     // debug调试app本地数据库
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
@@ -78,7 +83,6 @@ dependencies {
     // leak 内存泄漏检测
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
     implementation files('libs/commons-codec-1.6.jar')

@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -35,24 +34,29 @@
         </provider>
 
 
-        <activity android:name=".system.activity.LoginActivity">
-            <intent-filter>
-                <action android:name="com.bonait.bnframework.system.activity.LoginActivity.ACTION_START"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".system.activity.BottomNavigation2Activity"/>
-        <activity android:name=".system.activity.BottomNavigationActivity"/>
-        <activity android:name=".test.TestActivity" >
+        <activity android:name=".system.activity.WelcomeActivity"
+            android:theme="@style/AppTheme.Launcher">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
 
         </activity>
+        <activity android:name=".system.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="com.bonait.bnframework.system.activity.LoginActivity.ACTION_START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".system.activity.BottomNavigation2Activity" />
+        <activity android:name=".system.activity.BottomNavigationActivity" />
+        <activity android:name=".test.TestActivity">
+
+        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
