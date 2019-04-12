@@ -1,11 +1,11 @@
-package com.bonait.bnframework.common.model;
+package com.bonait.bnframework.system.model;
 
 import java.util.List;
 
 /**
  * Created by LY on 2019/4/2.
  */
-public class LoginPo {
+public class AppLoginPo {
 
     /**
      * roleIds : [-1]
@@ -23,7 +23,7 @@ public class LoginPo {
     private String pigFarmId;
     private String pigFarmName;
     private String roleNames;
-    private Integer firstDepId;
+    private String firstDepId;
     private String firstDepName;
     private String depName;
 
@@ -83,11 +83,11 @@ public class LoginPo {
         this.roleNames = roleNames;
     }
 
-    public Integer getFirstDepId() {
+    public String getFirstDepId() {
         return firstDepId;
     }
 
-    public void setFirstDepId(Integer firstDepId) {
+    public void setFirstDepId(String firstDepId) {
         this.firstDepId = firstDepId;
     }
 

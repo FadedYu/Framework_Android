@@ -28,6 +28,13 @@
         <item name="app_content_bg_color">@color/qmui_config_color_white</item>
 
     </style>
+    
+    <style name="AppTheme.Launcher" parent="QMUI.Compat.NoActionBar" >
+        <!-- 通过windowBackground可以设置背景色、背景图片、能解析出图片的XML文件等-->
+        <item name="android:windowBackground">@drawable/welcome</item> <!--设置启动背景图-->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <style name="QDtextAppearanceListItem">
         <item name="android:textColor">?attr/qmui_config_color_black</item>

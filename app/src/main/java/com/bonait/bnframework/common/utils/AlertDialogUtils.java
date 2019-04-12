@@ -31,6 +31,23 @@ public class AlertDialogUtils {
     }
 
     /**
+     * 对话框，只有确定按钮，自定义确定按钮文本
+     * */
+    public static void showDialog(Context context, String title, String message,String ok) {
+        new QMUIDialog.MessageDialogBuilder(context)
+                .setCancelable(false)
+                .setTitle(title)
+                .setMessage(message)
+                .addAction(ok, new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
+    }
+
+    /**
      * 对话框，有取消确定按钮
      * */
     public static void showDialog(Context context, String title, String message, QMUIDialogAction.ActionListener onClickListener) {
