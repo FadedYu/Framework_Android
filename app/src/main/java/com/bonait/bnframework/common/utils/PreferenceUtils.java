@@ -13,7 +13,7 @@ public class PreferenceUtils {
      * 初始化SharedPreferences
      * */
     public static void initPreference(Context context,String name,int mode) {
-        if (sharedPreferences != null) {
+        if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences(name, mode);
         }
     }

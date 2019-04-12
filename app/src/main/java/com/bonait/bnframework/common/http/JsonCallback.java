@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.bonait.bnframework.application.ActivityLifecycleManager;
+import com.bonait.bnframework.common.constant.SPConstants;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
 import com.lzy.okgo.callback.AbsCallback;
@@ -68,9 +69,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         super.onError(response);
 
         Throwable exception = response.getException();
-        if (exception != null) {
+        /*if (exception != null) {
             exception.printStackTrace();
-        }
+        }*/
 
         if (exception instanceof UnknownHostException || exception instanceof ConnectException) {
             ToastUtils.error("网络连接失败，请连接网络！");
@@ -93,8 +94,8 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
      * */
     private void skipLoginActivityAndFinish(Throwable exception) {
         //删除本地过期的token
-        PreferenceUtils.remove("token");
-        PreferenceUtils.remove("userId");
+        PreferenceUtils.remove(SPConstants.TOKEN);
+        PreferenceUtils.remove(SPConstants.USER_ID);
         Intent intent = new Intent("com.bonait.bnframework.system.activity.LoginActivity.ACTION_START");
         // 获取当前Activity（栈中最后一个压入的）
         Activity activity = ActivityLifecycleManager.get().currentActivity();
