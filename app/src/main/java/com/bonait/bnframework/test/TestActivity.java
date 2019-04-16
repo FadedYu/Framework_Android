@@ -8,8 +8,9 @@ import android.view.View;
 import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
-import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
 import com.bonait.bnframework.common.http.callback.files.FileProgressDialogCallBack;
+import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
+import com.bonait.bnframework.common.http.callback.files2.FileProgressDialogCallBack2;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.AppUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
@@ -135,7 +136,8 @@ public class TestActivity extends BaseActivity {
                         //获取apk下载地址
                         downloadUrl = Constants.SERVICE_IP+ "/file-download?fileId=" + appId;
                         totalSize = Long.parseLong(updateAppPo.getFileSize());
-                        toDownload();
+                        //toDownload();
+                        //doDownload();
                     }
                 });
     }
@@ -143,7 +145,18 @@ public class TestActivity extends BaseActivity {
     private void toDownload() {
         OkGo.<File>get(downloadUrl)
                 .tag(this)
-                .execute(new FileProgressDialogCallBack(this,totalSize) {
+                .execute(new FileProgressDialogCallBack2(this,totalSize) {
+                    @Override
+                    public void onSuccess(Response<File> response) {
+                        ToastUtils.success("下载完成！");
+                    }
+                });
+    }
+
+    private void doDownload() {
+        OkGo.<File>get(downloadUrl)
+                .tag(this)
+                .execute(new FileProgressDialogCallBack(this) {
                     @Override
                     public void onSuccess(Response<File> response) {
                         ToastUtils.success("下载完成！");

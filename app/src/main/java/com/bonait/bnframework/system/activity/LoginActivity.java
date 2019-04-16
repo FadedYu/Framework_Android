@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bonait.bnframework.R;
+import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.constant.SPConstants;
@@ -28,6 +29,7 @@ import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.AlertDialogUtils;
 import com.bonait.bnframework.common.utils.AnimationToolUtils;
 import com.bonait.bnframework.common.utils.AppUtils;
+import com.bonait.bnframework.common.utils.Des3Utils;
 import com.bonait.bnframework.common.utils.KeyboardToolUtils;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
@@ -63,7 +65,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
     @Order(2)
     @NotEmpty(message = "密码不能为空")
-    @Password(min = 1, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS,message = "密码不能少于1位")
+    @Password(min = 1, scheme = Password.Scheme.ANY,message = "密码不能少于1位")
     @BindView(R.id.et_password)
     EditText mEtPassword;
 
@@ -100,6 +102,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        initUser();
         initEvent();
     }
 
@@ -107,11 +110,11 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_clean_account:
-                mEtAccount.setText("");
-                mEtPassword.setText("");
+                mEtAccount.getText().clear();
+                mEtPassword.getText().clear();
                 break;
             case R.id.clean_password:
-                mEtPassword.setText("");
+                mEtPassword.getText().clear();
                 break;
             case R.id.iv_show_pwd:
                 changePasswordEye();
@@ -123,6 +126,35 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 // 登录，启动表单验证，重写方法：onValidationSucceeded
                 validator.validate();
                 break;
+        }
+    }
+
+    /**
+     * 初始化登录历史记录
+     * */
+    private void initUser() {
+        //从sharePreference拿出保存的账号密码
+        String username = PreferenceUtils.getString(SPConstants.USER_NAME, "");
+        String password = PreferenceUtils.getString(SPConstants.PASSWORD, "");
+        mEtAccount.getText().clear();
+        mEtPassword.getText().clear();
+
+        if (!TextUtils.isEmpty(username)) {
+            mEtAccount.setText(username);
+            mEtAccount.setSelection(mEtAccount.getText().length());
+            mIvCleanAccount.setVisibility(View.VISIBLE);
+        }
+
+        if (!TextUtils.isEmpty(password)) {
+            password = Des3Utils.decode(password);
+            mEtPassword.setText(password);
+            mEtPassword.setSelection(mEtPassword.getText().length());
+            mCleanPassword.setVisibility(View.VISIBLE);
+            cbCheckbox.setChecked(true);
+            isCheckBox = true;
+        } else {
+            cbCheckbox.setChecked(false);
+            isCheckBox = false;
         }
     }
 
@@ -175,6 +207,11 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 superAdminTest(appLoginPo);
                 // 存储用户必要的数据
                 saveUserDataToSharePreference(userAccount, password,appLoginPo);
+                //判断跳转到测试界面
+                if (Constants.SKIP_TO_TEST_ACTIVITY) {
+                    skipToTestActivity();
+                    return;
+                }
                 //跳转到主页
                 skipToMainActivity();
                 return;
@@ -194,6 +231,12 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
 
             // 存储用户必要的数据
             saveUserDataToSharePreference(userAccount, password,appLoginPo);
+            //判断跳转到测试界面
+            if (Constants.SKIP_TO_TEST_ACTIVITY) {
+                skipToTestActivity();
+                return;
+            }
+
             //跳转到主页
             skipToMainActivity();
         }
@@ -217,7 +260,8 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         PreferenceUtils.remove(SPConstants.PASSWORD);
         // 如果用户点击了“记住密码”，保存密码
         if (isCheckBox) {
-            PreferenceUtils.setString(SPConstants.PASSWORD, password);
+            String psd = Des3Utils.encode(password);
+            PreferenceUtils.setString(SPConstants.PASSWORD, psd);
         }
         // 保存用户名字
         PreferenceUtils.setString(SPConstants.USER, appLoginPo.getName());
@@ -243,6 +287,21 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     }
 
     /**
+     * 跳转到测试界面
+     * */
+    private void skipToTestActivity() {
+        // 隐藏软键盘
+        KeyboardToolUtils.hideSoftInput(LoginActivity.this);
+        // 退出界面之前把状态栏还原为白色字体与图标
+        QMUIStatusBarHelper.setStatusBarDarkMode(LoginActivity.this);
+        Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
+    }
+
+    /**
      * 跳转到主界面
      * */
     private void skipToMainActivity() {
@@ -250,11 +309,11 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         KeyboardToolUtils.hideSoftInput(LoginActivity.this);
         // 退出界面之前把状态栏还原为白色字体与图标
         QMUIStatusBarHelper.setStatusBarDarkMode(LoginActivity.this);
-        //Intent intent = new Intent(LoginActivity.this, BottomNavigation2Activity.class);
-        Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+        Intent intent = new Intent(LoginActivity.this, BottomNavigation2Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        LoginActivity.this.finish();
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
     }
 
     // *************************以上为登录验证及跳转界面相关*************************//

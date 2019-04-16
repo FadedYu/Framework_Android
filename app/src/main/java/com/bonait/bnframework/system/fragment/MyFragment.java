@@ -49,11 +49,14 @@ public class MyFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    private Context context;
+
     @Override
     protected View onCreateView() {
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my, null);
         ButterKnife.bind(this, root);
 
+        context = getContext();
         initView();
 
         return root;
@@ -84,7 +87,7 @@ public class MyFragment extends BaseFragment {
     public void checkPermission() {
         // 检查文件读写权限
         String[] params = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(getContext(),params)) {
+        if (EasyPermissions.hasPermissions(context,params)) {
 
             //Android 8.0后，安装应用需要检查打开未知来源应用权限
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -104,7 +107,7 @@ public class MyFragment extends BaseFragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkInstallPermission() {
         // 判断是否已打开未知来源应用权限
-        boolean haveInstallPermission = getContext().getPackageManager().canRequestPackageInstalls();
+        boolean haveInstallPermission = context.getPackageManager().canRequestPackageInstalls();
 
         if (!haveInstallPermission) {
             AlertDialogUtils.showDialog(getContext(),
@@ -115,7 +118,7 @@ public class MyFragment extends BaseFragment {
                         @Override
                         public void onClick(QMUIDialog dialog, int index) {
                             // 跳转到系统打开未知来源应用权限，在onActivityResult中启动更新
-                            toInstallPermissionSettingIntent(getContext());
+                            toInstallPermissionSettingIntent(context);
                         }
                     });
         } else {

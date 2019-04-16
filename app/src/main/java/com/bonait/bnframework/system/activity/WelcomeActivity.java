@@ -12,9 +12,9 @@ import com.bonait.bnframework.common.constant.SPConstants;
 import com.bonait.bnframework.common.http.callback.json.JsonCallback;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
+import com.bonait.bnframework.test.TestActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
-import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -106,28 +106,61 @@ public class WelcomeActivity extends AppCompatActivity {
                 .execute(new JsonCallback<BaseCodeJson<Void>>() {
                     @Override
                     public void onSuccess(Response<BaseCodeJson<Void>> response) {
-                        BaseCodeJson baseCodeJson = response.body();
-                        Logger.d(baseCodeJson.getMsg());
-                        // token未过期，跳转到主界面
-                        Intent intent = new Intent(WelcomeActivity.this, BottomNavigation2Activity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        // 结束所有Activity
-                        ActivityLifecycleManager.get().finishAllActivity();
+
+                        // 判断是否开启跳转到测试界面
+                        if (Constants.SKIP_TO_TEST_ACTIVITY) {
+                            skipToTestActivity();
+                        } else {
+                            skipToMainActivity();
+                        }
+
                     }
 
                     @Override
                     public void onError(Response<BaseCodeJson<Void>> response) {
                         super.onError(response);
-                        // 跳转到登录页面
-                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        // 结束所有Activity
-                        ActivityLifecycleManager.get().finishAllActivity();
+                        skipToLoginActivity();
                     }
                 });
+    }
+
+
+    /**
+     * 跳转到测试页面
+     * */
+    private void skipToTestActivity() {
+        // token未过期，跳转到主界面
+        Intent intent = new Intent(WelcomeActivity.this, TestActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
+    }
+
+
+    /**
+     * 跳转到主界面
+     * */
+    private void skipToMainActivity() {
+        // token未过期，跳转到主界面
+        Intent intent = new Intent(WelcomeActivity.this, BottomNavigation2Activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
+    }
+
+    /**
+     * 跳转到登录页面
+     * */
+    private void skipToLoginActivity() {
+        // 跳转到登录页面
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        // 结束所有Activity
+        ActivityLifecycleManager.get().finishAllActivity();
     }
 
     /**
