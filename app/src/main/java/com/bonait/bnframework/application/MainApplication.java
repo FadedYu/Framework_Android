@@ -20,6 +20,8 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.squareup.leakcanary.LeakCanary;
 
+import org.litepal.LitePal;
+
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -48,11 +50,11 @@ public class MainApplication extends Application {
         // QMUI 框架初始化
         QMUISwipeBackActivityManager.init(this);
 
+        // LitePal 数据库初始化
+        LitePal.initialize(this);
+
         // 全局配置OkGo
         initOkGo();
-
-        // SmartShow Toast框架，暂时不用，先使用ToastUtils工具类的
-        //SmartShow.init(this);
 
         // 配置sharedPreferences
         PreferenceUtils.initPreference(this, AppUtils.getAppName(this), Activity.MODE_PRIVATE);
@@ -62,6 +64,9 @@ public class MainApplication extends Application {
 
         // Log日志打印框架
         initLogCat();
+
+        // SmartShow Toast框架，暂时不用，先使用ToastUtils工具类的
+        //SmartShow.init(this);
     }
 
     //========================================================================//
