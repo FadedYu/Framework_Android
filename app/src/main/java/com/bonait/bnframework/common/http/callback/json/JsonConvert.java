@@ -16,9 +16,12 @@ import org.json.JSONObject;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
 
 /**
  * Created by LY on 2019/4/2.
@@ -54,6 +57,13 @@ public class JsonConvert<T> implements Converter<T> {
         // 如果你对这里的代码原理不清楚，可以看这里的详细原理说明: https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
         // 如果你对这里的代码原理不清楚，可以看这里的详细原理说明: https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
 
+
+        /*
+        * 由于项目需要，App端请求网络必需添加一个Token验证，所以登录成功之后会在OkGo全局添加一个Token的param
+        * 每次请求网络后台都会验证这个token是否过期，如果过期，则返回{"code":102,"msg":"token过期"}
+        * */
+        checkIfTheTokenHasExpired(response);
+
         if (type == null) {
             if (clazz == null) {
                 // 如果没有通过构造函数传进来，就自动解析父类泛型的真实类型（有局限性，继承后就无法解析到）
@@ -70,6 +80,28 @@ public class JsonConvert<T> implements Converter<T> {
             return parseClass(response, (Class<?>) type);
         } else {
             return parseType(response, type);
+        }
+    }
+
+    /**
+     * 检查Token是否过期，如果过期抛出TokenException异常并返回登录界面。
+     *
+     * 由于写这个方法时，出现了response.body()只调用一次就会close掉，导致后面方法无法继续获取response而发生异常
+     * 下面是一种解决方案，在读取buffer之前，先对buffer进行clone一下。这时候就可以拿到返回的数据，然后就可以继续调用response.body()。
+     * */
+    private void checkIfTheTokenHasExpired(Response response) throws Throwable {
+        ResponseBody body = response.body();
+        if (body == null) return ;
+
+        BufferedSource source = body.source();
+        source.request(Long.MAX_VALUE);
+        Buffer buffer = source.buffer();
+        String responseBodyString = buffer.clone().readString(Charset.forName("UTF-8"));
+        buffer.close();
+
+        JSONObject jsonObject = new JSONObject(responseBodyString);
+        if (jsonObject.optInt("code") == 102) {
+            throw new TokenException("token已过期");
         }
     }
 
@@ -93,6 +125,7 @@ public class JsonConvert<T> implements Converter<T> {
             //noinspection unchecked
             return (T) new JSONArray(body.string());
         } else {
+            // 泛型格式如下： new JsonCallback<任意JavaBean>(this)
             T t = GsonUtils.fromJson(jsonReader, rawType);
             response.close();
             return t;
@@ -160,9 +193,7 @@ public class JsonConvert<T> implements Converter<T> {
 
             code = simpleCodeJson.getCode();
             msg = simpleCodeJson.getMsg();
-            if (TextUtils.isEmpty(msg)) {
-                msg = "未知错误，请稍后重试！";
-            }
+
             // code为0: 表示成功
             if (code == 0) {
                 //noinspection unchecked
@@ -175,14 +206,16 @@ public class JsonConvert<T> implements Converter<T> {
 
             code = baseCodeJson.getCode();
             msg = baseCodeJson.getMsg();
-            if (TextUtils.isEmpty(msg)) {
-                msg = "未知错误，请稍后重试！";
-            }
+
             // code为0: 表示成功
             if (code == 0) {
                 //noinspection unchecked
                 return (T) baseCodeJson;
             }
+        }
+
+        if (TextUtils.isEmpty(msg)) {
+            msg = "未知错误，请稍后重试！";
         }
 
         // 当code返回不是0时，表示错误数据，根据数据返回不同的错误信息

@@ -8,6 +8,7 @@ import com.bonait.bnframework.common.constant.SPConstants;
 import com.bonait.bnframework.common.http.exception.TokenException;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
+import com.bonait.bnframework.system.activity.WelcomeActivity;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.exception.StorageException;
@@ -70,6 +71,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         super.onError(response);
 
         Throwable exception = response.getException();
+        //如果OkGo配置中Logger日志已打开，super.onError(response);就已经将printStackTrace打印出来了
         /*if (exception != null) {
             exception.printStackTrace();
         }*/
@@ -100,12 +102,16 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Intent intent = new Intent("com.bonait.bnframework.system.activity.LoginActivity.ACTION_START");
         // 获取当前Activity（栈中最后一个压入的）
         Activity activity = ActivityLifecycleManager.get().currentActivity();
+
+        // 如果不是WelcomeActivity，显示Toast告知token已过期
+        if (activity.getClass() != WelcomeActivity.class) {
+            ToastUtils.info(exception.getMessage());
+        }
+
         // 结束所有Activity
         ActivityLifecycleManager.get().finishAllActivity();
         // 跳转到登录页面
         activity.startActivity(intent);
         activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-        //ToastUtils.error(exception.getMessage());
     }
 }
