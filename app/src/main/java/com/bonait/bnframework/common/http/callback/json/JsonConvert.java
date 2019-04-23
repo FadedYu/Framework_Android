@@ -2,7 +2,7 @@ package com.bonait.bnframework.common.http.callback.json;
 
 import android.text.TextUtils;
 
-import com.bonait.bnframework.common.http.GsonUtils;
+import com.bonait.bnframework.common.http.GsonConvert;
 import com.bonait.bnframework.common.http.exception.TokenException;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.model.BaseJson;
@@ -126,7 +126,7 @@ public class JsonConvert<T> implements Converter<T> {
             return (T) new JSONArray(body.string());
         } else {
             // 泛型格式如下： new JsonCallback<任意JavaBean>(this)
-            T t = GsonUtils.fromJson(jsonReader, rawType);
+            T t = GsonConvert.fromJson(jsonReader, rawType);
             response.close();
             return t;
         }
@@ -142,7 +142,7 @@ public class JsonConvert<T> implements Converter<T> {
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         // 泛型格式如下： new JsonCallback<任意JavaBean>(this)
-        T t = GsonUtils.fromJson(jsonReader, type);
+        T t = GsonConvert.fromJson(jsonReader, type);
         response.close();
         return t;
     }
@@ -167,7 +167,7 @@ public class JsonConvert<T> implements Converter<T> {
         } else {
             // 其他json格式
             // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
-            T t = GsonUtils.fromJson(jsonReader, type);
+            T t = GsonConvert.fromJson(jsonReader, type);
             response.close();
             return t;
         }
@@ -188,7 +188,7 @@ public class JsonConvert<T> implements Converter<T> {
 
         if (typeArgument == Void.class) {
             // 泛型格式如下： new JsonCallback<BaseCodeJson<Void>>(this)
-            SimpleCodeJson simpleCodeJson = GsonUtils.fromJson(jsonReader,SimpleCodeJson.class);
+            SimpleCodeJson simpleCodeJson = GsonConvert.fromJson(jsonReader,SimpleCodeJson.class);
             response.close();
 
             code = simpleCodeJson.getCode();
@@ -201,7 +201,7 @@ public class JsonConvert<T> implements Converter<T> {
             }
         } else {
             // 泛型格式如下： new JsonCallback<BaseCodeJson<内层JavaBean>>(this)
-            BaseCodeJson baseCodeJson = GsonUtils.fromJson(jsonReader,type);
+            BaseCodeJson baseCodeJson = GsonConvert.fromJson(jsonReader,type);
             response.close();
 
             code = baseCodeJson.getCode();
@@ -246,7 +246,7 @@ public class JsonConvert<T> implements Converter<T> {
 
         if (typeArgument == Void.class) {
             // 泛型格式如下： new JsonCallback<BaseJson<Void>>(this)
-            SimpleBaseJson simpleBaseJson = GsonUtils.fromJson(jsonReader, SimpleBaseJson.class);
+            SimpleBaseJson simpleBaseJson = GsonConvert.fromJson(jsonReader, SimpleBaseJson.class);
             response.close();
             success = simpleBaseJson.isSuccess();
             msg = simpleBaseJson.getMsg();
@@ -258,7 +258,7 @@ public class JsonConvert<T> implements Converter<T> {
 
         } else {
             // 泛型格式如下： new JsonCallback<BaseJson<内层JavaBean>>(this)
-            BaseJson baseJson = GsonUtils.fromJson(jsonReader, type);
+            BaseJson baseJson = GsonConvert.fromJson(jsonReader, type);
             response.close();
             success = baseJson.isSuccess();
             msg = baseJson.getMsg();

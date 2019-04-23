@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.bonait.bnframework.BuildConfig;
 import com.bonait.bnframework.common.constant.Constants;
+import com.bonait.bnframework.common.notification.MainNotification;
 import com.bonait.bnframework.common.utils.AppUtils;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.lzy.okgo.OkGo;
@@ -58,6 +59,9 @@ public class MainApplication extends Application {
 
         // 配置sharedPreferences
         PreferenceUtils.initPreference(this, AppUtils.getAppName(this), Activity.MODE_PRIVATE);
+
+        // 初始化通知栏消息渠道
+        MainNotification.initNotificationChannel(this);
 
         // 内存泄漏检测
         initLeakCanary(false);

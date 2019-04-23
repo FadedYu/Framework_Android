@@ -11,10 +11,10 @@ import java.lang.reflect.Type;
 /**
  * Created by LY on 2019/4/1.
  */
-public class GsonUtils {
+public class GsonConvert {
 
     private static Gson create() {
-        return GsonUtils.GsonHolder.gson;
+        return GsonConvert.GsonHolder.gson;
     }
 
     private static class GsonHolder {

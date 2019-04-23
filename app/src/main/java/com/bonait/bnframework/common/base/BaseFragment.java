@@ -29,7 +29,7 @@ public abstract class BaseFragment extends QMUIFragment implements EasyPermissio
 
     @Override
     protected int backViewInitOffset() {
-        return QMUIDisplayHelper.dp2px(getContext(), 100);
+        return QMUIDisplayHelper.dp2px(requireContext(), 100);
     }
 
     @Override

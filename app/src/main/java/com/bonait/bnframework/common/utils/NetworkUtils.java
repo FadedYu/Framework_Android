@@ -53,6 +53,30 @@ public class NetworkUtils {
     }
 
     /**
+     * 判断是否是移动网络连接
+     * */
+    public static boolean isActiveNetworkMobile(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+        }
+        return false;
+    }
+
+    /**
+     * 判断是否是wifi
+     * */
+    public static boolean isActiveNetworkWifi(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
+        }
+        return false;
+    }
+
+    /**
      * @deprecated 请先使用 {@link NetworkUtils#isNetworkConnected(Context)} 方法
      *
      * 检测当的网络（WLAN、4G/3G/2G）状态
