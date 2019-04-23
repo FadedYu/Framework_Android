@@ -42,7 +42,7 @@ public class Home1Fragment extends BaseFragment {
     }
 
     private void initTopBar() {
-        mTopBar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.app_color_theme_4));
+        mTopBar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_color_theme_4));
         mTopBar.setTitle("沉浸式状态栏示例");
     }
 

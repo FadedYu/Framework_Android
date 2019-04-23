@@ -3,14 +3,16 @@ package com.bonait.bnframework.test;
 import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.bonait.bnframework.R;
+import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.http.callback.files.FileProgressDialogCallBack;
-import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
 import com.bonait.bnframework.common.http.callback.files2.FileProgressDialogCallBack2;
+import com.bonait.bnframework.common.http.callback.json.JsonDialogCallback;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.AppUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
@@ -37,6 +39,7 @@ public class TestActivity extends BaseActivity {
 
     private String token = "";
     private Context context;
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class TestActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button:
-                ToastUtils.info("提交成功！");
+                //ToastUtils.info("提交成功！");
                 //SmartToast.info("提交成功！");
                 //login();
                 break;
@@ -112,7 +115,7 @@ public class TestActivity extends BaseActivity {
         //判断是否获取权限
         if (EasyPermissions.hasPermissions(this, params)) {
             // 全部权限申请成功后
-            getAppId();
+            doDownload();
         } else {
             //未获取权限或拒绝权限时
             EasyPermissions.requestPermissions(this,
@@ -137,7 +140,7 @@ public class TestActivity extends BaseActivity {
                         downloadUrl = Constants.SERVICE_IP+ "/file-download?fileId=" + appId;
                         totalSize = Long.parseLong(updateAppPo.getFileSize());
                         //toDownload();
-                        //doDownload();
+                        doDownload();
                     }
                 });
     }
@@ -154,6 +157,7 @@ public class TestActivity extends BaseActivity {
     }
 
     private void doDownload() {
+        downloadUrl = Constants.SERVICE_IP+ "/file-download?fileId=1509";
         OkGo.<File>get(downloadUrl)
                 .tag(this)
                 .execute(new FileProgressDialogCallBack(this) {
@@ -162,5 +166,24 @@ public class TestActivity extends BaseActivity {
                         ToastUtils.success("下载完成！");
                     }
                 });
+    }
+
+    /**
+     * 重写返回键，实现双击退出程序效果
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.normal("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                OkGo.getInstance().cancelAll();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                ActivityLifecycleManager.get().appExit();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

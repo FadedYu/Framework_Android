@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     @BindView(R.id.scrollView)
     NestedScrollView mScrollView;
 
+    private long exitTime = 0;
     private int screenHeight = 0;//屏幕高度
     private int keyHeight = 0; //软件盘弹起后所占高度
     private final float scale = 0.9f; //logo缩放比例
@@ -459,5 +461,24 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
                 ToastUtils.error(message);
             }
         }
+    }
+
+    /**
+     * 重写返回键，实现双击退出程序效果
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.normal("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                OkGo.getInstance().cancelAll();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                ActivityLifecycleManager.get().appExit();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

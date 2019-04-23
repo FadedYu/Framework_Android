@@ -55,7 +55,7 @@ public class MyFragment extends BaseFragment {
     protected View onCreateView() {
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_my, null);
         ButterKnife.bind(this, root);
-
+        Logger.d("第三页创建");
         context = getContext();
         initView();
 
@@ -147,6 +147,12 @@ public class MyFragment extends BaseFragment {
                 ToastUtils.info("请再次点击版本更新");
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.d("第三页创建");
     }
 
     /**

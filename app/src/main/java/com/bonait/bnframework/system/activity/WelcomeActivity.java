@@ -132,6 +132,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // token未过期，跳转到主界面
         Intent intent = new Intent(WelcomeActivity.this, TestActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         startActivity(intent);
         // 结束所有Activity
         ActivityLifecycleManager.get().finishAllActivity();
@@ -146,6 +147,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(WelcomeActivity.this, BottomNavigation2Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         // 结束所有Activity
         ActivityLifecycleManager.get().finishAllActivity();
     }

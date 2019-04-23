@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bonait.bnframework.R;
+import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.base.BaseActivity;
+import com.bonait.bnframework.common.utils.ToastUtils;
 import com.bonait.bnframework.home.fragment.Home1Fragment;
 import com.bonait.bnframework.home.fragment.Home2Fragment;
 import com.bonait.bnframework.system.fragment.MyFragment;
+import com.lzy.okgo.OkGo;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -30,6 +34,7 @@ public class BottomNavigationActivity extends BaseActivity {
     QMUITabSegment mTabSegment;
 
     private Context context;
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,4 +201,22 @@ public class BottomNavigationActivity extends BaseActivity {
         return mViewPager.getCurrentItem() == 0;
     }
 
+    /**
+     * 重写返回键，实现双击退出程序效果
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.normal("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                OkGo.getInstance().cancelAll();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                ActivityLifecycleManager.get().appExit();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
