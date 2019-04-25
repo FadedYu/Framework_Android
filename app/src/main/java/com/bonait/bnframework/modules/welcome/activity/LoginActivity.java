@@ -1,4 +1,4 @@
-package com.bonait.bnframework.system.activity;
+package com.bonait.bnframework.modules.welcome.activity;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bonait.bnframework.R;
-import com.bonait.bnframework.application.ActivityLifecycleManager;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.constant.SPConstants;
@@ -34,7 +33,9 @@ import com.bonait.bnframework.common.utils.Des3Utils;
 import com.bonait.bnframework.common.utils.KeyboardToolUtils;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
-import com.bonait.bnframework.system.model.AppLoginPo;
+import com.bonait.bnframework.manager.ActivityLifecycleManager;
+import com.bonait.bnframework.modules.home.activity.BottomNavigationActivity;
+import com.bonait.bnframework.modules.welcome.model.AppLoginPo;
 import com.bonait.bnframework.test.TestActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
@@ -311,7 +312,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
         KeyboardToolUtils.hideSoftInput(LoginActivity.this);
         // 退出界面之前把状态栏还原为白色字体与图标
         QMUIStatusBarHelper.setStatusBarDarkMode(LoginActivity.this);
-        Intent intent = new Intent(LoginActivity.this, BottomNavigation2Activity.class);
+        Intent intent = new Intent(LoginActivity.this, BottomNavigationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         // 结束所有Activity

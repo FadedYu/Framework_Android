@@ -1,8 +1,10 @@
-package com.bonait.bnframework.system.adapter;
+package com.bonait.bnframework.modules.home.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +32,11 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     public void addFragment(Fragment fragment) {
         fragments.add(fragment);
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        return super.instantiateItem(container, position);
     }
 }

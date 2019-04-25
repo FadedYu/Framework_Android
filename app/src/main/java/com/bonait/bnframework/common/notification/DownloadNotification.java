@@ -8,7 +8,7 @@ import android.support.v4.app.NotificationCompat;
 import android.text.format.Formatter;
 
 import com.bonait.bnframework.R;
-import com.bonait.bnframework.application.MainApplication;
+import com.bonait.bnframework.MainApplication;
 import com.lzy.okgo.model.Progress;
 
 import java.util.Date;
@@ -17,6 +17,7 @@ import java.util.Locale;
 
 /**
  * Created by LY on 2019/4/18.
+ * 下载通知栏notification
  */
 public class DownloadNotification {
 

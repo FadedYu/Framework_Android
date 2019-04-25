@@ -1,11 +1,11 @@
-package com.bonait.bnframework.application;
+package com.bonait.bnframework;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.bonait.bnframework.BuildConfig;
+import com.bonait.bnframework.manager.ActivityLifecycleManager;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.notification.MainNotification;
 import com.bonait.bnframework.common.utils.AppUtils;

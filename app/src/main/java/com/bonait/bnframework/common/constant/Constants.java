@@ -1,7 +1,7 @@
 package com.bonait.bnframework.common.constant;
 
 import com.bonait.bnframework.R;
-import com.bonait.bnframework.application.MainApplication;
+import com.bonait.bnframework.MainApplication;
 
 /**
  * Created by LY on 2019/3/21.
@@ -14,11 +14,11 @@ public interface Constants {
      * 外:http://113.108.201.18:23104/GKIA
      * 内:http://192.168.22.98:23104/GKIA
      * */
-    String SERVICE_IP = "http://192.168.18.139:8080/GKIA";
+    String SERVICE_IP = "http://192.168.22.98:23104/GKIA";
     String APP_TOKEN = "appToken";
 
     // admin测试数据使用
-    boolean SKIP_TO_TEST_ACTIVITY = true; // 是否启用TestActivity
+    boolean SKIP_TO_TEST_ACTIVITY = false; // 是否启用TestActivity
     boolean superAdminTest = MainApplication.getContext().getResources().getBoolean(R.bool.superAdminTest);
 
     // OkGo 连接超时时间,毫秒ms

@@ -1,8 +1,7 @@
-package com.bonait.bnframework.home.fragment;
+package com.bonait.bnframework.modules.home.fragment;
 
 
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -10,7 +9,7 @@ import com.bonait.bnframework.R;
 import com.bonait.bnframework.common.base.BaseFragment;
 import com.bonait.bnframework.common.utils.ToastUtils;
 import com.orhanobut.logger.Logger;
-import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,43 +18,38 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Home1Fragment extends BaseFragment {
+public class Home3Fragment extends BaseFragment {
 
     @BindView(R.id.topbar)
-    QMUITopBar mTopBar;
+    QMUITopBarLayout mTopBar;
 
-    public Home1Fragment() {
+    public Home3Fragment() {
+        // Required empty public constructor
     }
 
     @Override
     protected View onCreateView() {
-        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home1, null);
+        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_home3, null);
         ButterKnife.bind(this, root);
-        Logger.d("第一页创建");
+        Logger.d("第三页创建");
+
         initTopBar();
         return root;
     }
 
+    private void initTopBar() {
+        mTopBar.setTitle("第三页");
+    }
+
     @OnClick(R.id.button)
     public void onViewClicked() {
-        ToastUtils.info("主页");
+        ToastUtils.info("我的");
     }
-
-    private void initTopBar() {
-        mTopBar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.app_color_theme_4));
-        mTopBar.setTitle("沉浸式状态栏示例");
-    }
-
-    /*private void initTopBar() {
-        mTopBar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.app_color_theme_4));
-
-        mTopBar.setTitle("沉浸式状态栏示例");
-    }*/
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Logger.d("第一页销毁");
+        Logger.d("第三页销毁");
     }
 
     /**
@@ -65,7 +59,7 @@ public class Home1Fragment extends BaseFragment {
      *
      * 切记！切记！切记！否则会闪退！
      *
-     * 在fragment设置viewPager则不会出现这个问题。
+     * 若底层是BottomNavigationFragment设置viewPager则不会出现这个问题。
      * */
     @Override
     protected boolean canDragBack() {

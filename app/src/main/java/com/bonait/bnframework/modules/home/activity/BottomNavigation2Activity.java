@@ -1,4 +1,4 @@
-package com.bonait.bnframework.system.activity;
+package com.bonait.bnframework.modules.home.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,13 +8,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.bonait.bnframework.R;
-import com.bonait.bnframework.application.ActivityLifecycleManager;
+import com.bonait.bnframework.manager.ActivityLifecycleManager;
 import com.bonait.bnframework.common.base.BaseActivity;
 import com.bonait.bnframework.common.utils.ToastUtils;
-import com.bonait.bnframework.home.fragment.Home1Fragment;
-import com.bonait.bnframework.home.fragment.Home2Fragment;
-import com.bonait.bnframework.system.adapter.FragmentAdapter;
-import com.bonait.bnframework.system.fragment.MyFragment;
+import com.bonait.bnframework.modules.home.fragment.Home1Fragment;
+import com.bonait.bnframework.modules.home.fragment.Home2Fragment;
+import com.bonait.bnframework.modules.home.adapter.FragmentAdapter;
+import com.bonait.bnframework.modules.mine.fragment.MyFragment;
 import com.lzy.okgo.OkGo;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
@@ -88,7 +88,7 @@ public class BottomNavigation2Activity extends BaseActivity {
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            MenuItem menuItem = bottomNavigationView.getMenu().getItem(position);
         }
 
         @Override

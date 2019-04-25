@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".application.MainApplication"
+        android:name=".MainApplication"
         android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +36,7 @@
         </provider>
 
         <activity
-            android:name=".system.activity.WelcomeActivity"
+            android:name=".modules.welcome.activity.WelcomeActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,9 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".system.activity.LoginActivity">
+        <activity android:name=".modules.welcome.activity.LoginActivity">
             <intent-filter>
-                <action android:name="com.bonait.bnframework.system.activity.LoginActivity.ACTION_START" />
+                <action android:name="com.bonait.bnframework.modules.welcome.activity.LoginActivity.ACTION_START" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -58,8 +58,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".system.activity.BottomNavigation2Activity" />
-        <activity android:name=".system.activity.BottomNavigationActivity" />
+        <activity android:name=".modules.home.activity.BottomNavigation2Activity" />
+        <activity android:name=".modules.home.activity.BottomNavigationActivity" />
     </application>
 
 </manifest>

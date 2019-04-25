@@ -3,12 +3,12 @@ package com.bonait.bnframework.common.http.callback.json;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.bonait.bnframework.application.ActivityLifecycleManager;
+import com.bonait.bnframework.manager.ActivityLifecycleManager;
 import com.bonait.bnframework.common.constant.SPConstants;
 import com.bonait.bnframework.common.http.exception.TokenException;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
 import com.bonait.bnframework.common.utils.ToastUtils;
-import com.bonait.bnframework.system.activity.WelcomeActivity;
+import com.bonait.bnframework.modules.welcome.activity.WelcomeActivity;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.exception.StorageException;
@@ -99,7 +99,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         //删除本地过期的token
         PreferenceUtils.remove(SPConstants.TOKEN);
         PreferenceUtils.remove(SPConstants.USER_ID);
-        Intent intent = new Intent("com.bonait.bnframework.system.activity.LoginActivity.ACTION_START");
+        Intent intent = new Intent("com.bonait.bnframework.modules.welcome.activity.LoginActivity.ACTION_START");
         // 获取当前Activity（栈中最后一个压入的）
         Activity activity = ActivityLifecycleManager.get().currentActivity();
 

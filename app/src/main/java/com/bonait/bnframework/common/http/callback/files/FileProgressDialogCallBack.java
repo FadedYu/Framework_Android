@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.text.format.Formatter;
 import android.util.Log;
 
-import com.bonait.bnframework.application.MainApplication;
+import com.bonait.bnframework.MainApplication;
 import com.bonait.bnframework.common.notification.DownloadNotification;
 import com.bonait.bnframework.common.utils.AlertDialogUtils;
 import com.bonait.bnframework.common.utils.NetworkUtils;

@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 
 /**
  * Created by LY on 2019/4/1.
+ * Gson 转换
  */
 public class GsonConvert {
 

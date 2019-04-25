@@ -8,7 +8,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".system.activity.LoginActivity">
+    tools:context=".modules.welcome.activity.LoginActivity">
 
     <ImageView
         android:id="@+id/logo"

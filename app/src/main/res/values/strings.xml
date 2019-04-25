@@ -4,8 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation2">标题</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">功能</string>
     <string name="user_account">请输入用户名</string>
+    <string name="mine">我的</string>
 </resources>

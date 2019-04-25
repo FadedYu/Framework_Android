@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/app_primary_color"
-    tools:context=".system.activity.BottomNavigation2Activity">
+    tools:context=".modules.home.activity.BottomNavigation2Activity">
 
     <com.qmuiteam.qmui.widget.QMUIViewPager
         android:id="@+id/viewpager"

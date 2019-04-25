@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 
 /**
  * Created by LY on 2019/4/22.
+ * 初始化notification，针对Android8.0以上创建消息渠道组和消息渠道
  */
 public class MainNotification {
 

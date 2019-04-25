@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bonait.bnframework.R;
-import com.bonait.bnframework.application.MainApplication;
+import com.bonait.bnframework.MainApplication;
 
 /**
  * Created by LY on 2019/3/19.

@@ -18,12 +18,12 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 /**
  * Created by LY on 2019/3/25.
  */
-public class QMAutoDialogBuilder extends QMUIDialog.AutoResizeDialogBuilder {
+public class QMAutoDialogBuilderView extends QMUIDialog.AutoResizeDialogBuilder {
 
     private Context mContext;
     private EditText mEditText;
 
-    public QMAutoDialogBuilder(Context context) {
+    public QMAutoDialogBuilderView(Context context) {
         super(context);
         mContext = context;
     }

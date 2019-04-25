@@ -1,4 +1,4 @@
-package com.bonait.bnframework.system.activity;
+package com.bonait.bnframework.modules.welcome.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
-import com.bonait.bnframework.application.ActivityLifecycleManager;
+import com.bonait.bnframework.manager.ActivityLifecycleManager;
 import com.bonait.bnframework.common.constant.Constants;
 import com.bonait.bnframework.common.constant.SPConstants;
 import com.bonait.bnframework.common.http.callback.json.JsonCallback;
 import com.bonait.bnframework.common.model.BaseCodeJson;
 import com.bonait.bnframework.common.utils.PreferenceUtils;
+import com.bonait.bnframework.modules.home.activity.BottomNavigation2Activity;
 import com.bonait.bnframework.test.TestActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;

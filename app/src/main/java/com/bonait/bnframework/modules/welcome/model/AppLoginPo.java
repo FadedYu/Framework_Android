@@ -1,4 +1,4 @@
-package com.bonait.bnframework.system.model;
+package com.bonait.bnframework.modules.welcome.model;
 
 import java.util.List;
 
