@@ -8,12 +8,6 @@ import com.bonait.bnframework.MainApplication;
  */
 public interface Constants {
 
-    /*
-     * 服务器IP地址，IP地址改变，在这里修改
-     * 本:http://192.168.18.138:8080/GKIA
-     * 外:http://113.108.201.18:23104/GKIA
-     * 内:http://192.168.22.98:23104/GKIA
-     * */
     String SERVICE_IP = "http://192.168.22.98:23104/GKIA";
     String APP_TOKEN = "appToken";
 

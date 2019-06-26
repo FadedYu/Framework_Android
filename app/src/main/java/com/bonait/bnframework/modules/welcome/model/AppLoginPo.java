@@ -7,21 +7,10 @@ import java.util.List;
  */
 public class AppLoginPo {
 
-    /**
-     * roleIds : [-1]
-     * token :
-     * id : 1
-     * name : 超级管理员
-     * firstDepName: 猪场
-     * depName: 五一猪场
-     */
-
     private String token;
     private int id;
     private String name;
     private List<Integer> roleIds;
-    private String pigFarmId;
-    private String pigFarmName;
     private String roleNames;
     private String firstDepId;
     private String firstDepName;
@@ -57,22 +46,6 @@ public class AppLoginPo {
 
     public void setRoleIds(List<Integer> roleIds) {
         this.roleIds = roleIds;
-    }
-
-    public String getPigFarmId() {
-        return pigFarmId;
-    }
-
-    public void setPigFarmId(String pigFarmId) {
-        this.pigFarmId = pigFarmId;
-    }
-
-    public String getPigFarmName() {
-        return pigFarmName;
-    }
-
-    public void setPigFarmName(String pigFarmName) {
-        this.pigFarmName = pigFarmName;
     }
 
     public String getRoleNames() {

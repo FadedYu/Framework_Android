@@ -250,14 +250,6 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
      * 根据返回的结果，存储用户必要的数据到SharePreference
      * */
     private void saveUserDataToSharePreference(String userName, String password,AppLoginPo appLoginPo) {
-        // 默认当返回数据没有猪场时，不保存
-        // 当返回数据有猪场时，保存猪场id和猪场名字
-        if (!"".equals(appLoginPo.getPigFarmId())) {
-            PreferenceUtils.setString(SPConstants.PIG_FARM_ID,appLoginPo.getPigFarmId());
-        }
-        if (!"".equals(appLoginPo.getPigFarmName())) {
-            PreferenceUtils.setString(SPConstants.PIG_FARM_NAME,appLoginPo.getPigFarmName());
-        }
         //保存用户账号密码到sharePreference
         PreferenceUtils.setString(SPConstants.USER_NAME, userName);
         PreferenceUtils.remove(SPConstants.PASSWORD);
@@ -327,9 +319,7 @@ public class LoginActivity extends BaseActivity implements Validator.ValidationL
     private void superAdminTest(AppLoginPo appLoginPo) {
         int id = appLoginPo.getId();
         if (id == 1) {
-            // 当返回数据没有猪场时，默认是五一猪场
-            PreferenceUtils.setString(SPConstants.PIG_FARM_ID,"0");
-            PreferenceUtils.setString(SPConstants.PIG_FARM_NAME,"五一猪场");
+            // TODO: do something
         }
     }
 

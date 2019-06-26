@@ -46,6 +46,7 @@ public class DownloadNotification {
                 .setContentTitle(progress.fileName)
                 .setContentText("下载进度:" + String.format(Locale.CHINA, "%s / %s", downloadLength, totalLength))
                 .setProgress(100, (int) (progress.fraction * 100.0), false)
+                .setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)
                 .build();
 
         if (notificationManager != null) {
