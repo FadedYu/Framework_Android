@@ -52,15 +52,5 @@ public interface SPConstants {
      * */
     String FIRST_DEP_ID = "firstDepId";
 
-    /**
-     * 猪场id
-     * */
-    String PIG_FARM_ID = "PigFarmId";
-
-    /**
-     * 猪场名字
-     * */
-    String PIG_FARM_NAME = "pigFarmName";
-
 
 }
