@@ -6,7 +6,7 @@ Android架构搭建，根据腾讯QMUI_Android框架搭建，适用于快速运�
 感谢QMUI_Android团队为广大开发者提供的 UI 库 ，官网：[http://qmuiteam.com/android](http://qmuiteam.com/android)
 
 
-### （持续更新）
+### （随缘更新）
 
 ### 开发日志 —— 2
  - 添加并重写OkGo中的JsonCallback，添加JsonConvert类，对后台baseJson进行统一管理。
